@@ -11,13 +11,13 @@ namespace GiuaKy_C_.Model
 		public int Id { get; set; }
 		public string Name { get; set; }
 
-		public List<DanhMuc> GetDanhMucs()
+		public static List<DanhMuc> GetDanhMucs()
 		{
 			return new List<DanhMuc>
 			{
 				new DanhMuc { Id = 1, Name = "Sach" },
 				new DanhMuc { Id = 2, Name = "Tap chi" },
-				new DanhMuc { Id = 1, Name = "Bao" },
+				new DanhMuc { Id = 3, Name = "Bao" },
 			};
 		}
 	}

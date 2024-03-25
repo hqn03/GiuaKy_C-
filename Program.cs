@@ -21,14 +21,23 @@ namespace GiuaKy_C_
 			Console.WriteLine("Tim kiem 1.Sach \t2.TapChi\t3.Bao");
 			int key = Int16.Parse(Console.ReadLine());
 
-			var x = taiLieus.Where(x => x.DanhMuc == key);
+			var x = from tl in taiLieus
+					where tl.DanhMuc == key
+					join dm in DanhMuc.GetDanhMucs() on tl.DanhMuc equals dm.Id
+					select new { tl.MaXuatBan, tl.TenTaiLieu, tl.NhaPhatHanh, dm.Name };
 
 			foreach (var y in x)
-				Console.WriteLine(y.MaXuatBan + "," + y.TenTaiLieu + "," + y.NhaPhatHanh + "," + y.DanhMuc);
+				Console.WriteLine(y.MaXuatBan + "," + y.TenTaiLieu + "," + y.NhaPhatHanh + "," + y.Name);
 
 			var nam = taiLieus.Where(x => x.DanhMuc == 3).Where(x => ((Bao)x).NgayPhatHanh.Month == 3).Where(x => ((Bao)x).NgayPhatHanh.Year == 2024);
 
-			foreach(var y in nam)
+			var SearchByYear = from tailieu in taiLieus
+							   where tailieu.MaXuatBan==3 &&
+							   ((Bao)tailieu).NgayPhatHanh.Month ==3 &&
+							   ((Bao)tailieu).NgayPhatHanh.Year ==2024
+							   select tailieu;
+
+			foreach(var y in SearchByYear)
 				Console.WriteLine(y.MaXuatBan + "," + y.TenTaiLieu + "," + y.NhaPhatHanh + "," + y.DanhMuc+","+((Bao)y).NgayPhatHanh);
 
 
